@@ -1,42 +1,68 @@
 
-const data = (req) => ({
+const data = (req) => {
+  let department = "";
+  let city = "";
+
+  switch (req.delivery) {
+    case 'Укрпошта - адреснa доставкa':
+      department = req.department == "" ? "" : ("Індекс відділення: " + req.department);
+      city = req.town == "" ? "" : ("Адреса клієнта: " + req.town);
+      break;
+    case 'Укрпошта - відділення':
+      department = req.department == "" ? "" : ("Індекс відділення: " + req.department);
+      city = "";
+      break;
+    case 'Нова пошта':
+      department = req.department == "" ? "" : ("Поштове відділення: " + req.department);
+      city = req.town == "" ? "" : ("Місто: " + req.town);
+      break;
+    default:
+      department = req.department == "" ? "" : ("Поштове відділення: " + req.department);
+      city = req.town == "" ? "" : ("Місто: " + req.town);
+  }
+
+  const shape = {
     "payment_method": req.payment,
     "payment_method_title": req.payment,
     "set_paid": true,
     "billing": {
-        "first_name": ("Клієнт: " + req.name),
-        "last_name": "",
-        "address_1": req.town == "" ? "" : ("Місто: " + req.town),
-        "address_2": req.department == "" ? "" : ("Поштове відділення: " + req.department),
-        "city": req.delivery == "" ? "" : ("Спосіб доставки: " + req.delivery),
-        "state": "",
-        "postcode": "",
-        "country": req.comment == "" ? "" : ("Коментар: " + req.comment),
-        "email": req.email,
-        "phone": req.number
+      "first_name": ("Клієнт: " + req.name),
+      "last_name": "",
+      "address_1": city,
+      "address_2": department,
+      "city": req.delivery == "" ? "" : ("Спосіб доставки: " + req.delivery),
+      "state": "",
+      "postcode": "",
+      "country": req.comment == "" ? "" : ("Коментар: " + req.comment),
+      "email": req.email,
+      "phone": req.number
     },
     "shipping": {
-        "first_name": ("Клієнт: " + req.name),
-        "last_name": "",
-        "address_1": req.town == "" ? "" : ("Місто: " + req.town),
-        "address_2": req.department == "" ? "" : ("Поштове відділення: " + req.department),
-        "city": req.delivery == "" ? "" : ("Спосіб доставки: " + req.delivery),
-        "state": "",
-        "postcode": "",
-        "country": req.comment == "" ? "" : ("Коментар: " + req.comment),
+      "first_name": ("Клієнт: " + req.name),
+      "last_name": "",
+      "address_1": city,
+      "address_2": department,
+      "city": req.delivery == "" ? "" : ("Спосіб доставки: " + req.delivery),
+      "state": "",
+      "postcode": "",
+      "country": req.comment == "" ? "" : ("Коментар: " + req.comment),
     },
     "line_items": req.line_items
-});
+  }
+  return shape
+}
 
-const make_order  = async (req, api) => {
+
+
+const make_order = async (req, api) => {
   return new Promise((resolve) => {
-    api.postAsync("orders", data(req)).then(function(result) {
+    api.postAsync("orders", data(req)).then((result) => {
       resolve(result)
     });
 
   })
 
-    
+
 }
 
 module.exports = { make_order };

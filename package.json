@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bluebird": "^3.7.2",
     "cors": "^2.8.5",
     "create-hmac": "^1.1.7",
     "dotenv": "^16.0.0",
@@ -8,7 +9,9 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.15",
     "oauth-1.0a": "^2.2.6",
-    "php-unserialize": "^0.0.1"
+    "php-unserialize": "^0.0.1",
+    "request": "^2.88.2",
+    "url": "^0.11.0"
   },
   "name": "wp-server",
   "version": "",
