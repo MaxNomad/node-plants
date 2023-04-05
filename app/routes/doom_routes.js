@@ -43,8 +43,9 @@ module.exports = function (app, db, woo_api) {
         try {
             const good = await dbf.get_good(db, req.params.goodId);
             const data_img = await dbf.get_good_images(db, req.params.goodId);
+            const attributes = await dbf.get_good_attr(db, req.params.goodId);
             if (!good.length == 0) {
-                const data = Object.assign(good[0], { "images": data_img })
+                const data = Object.assign(good[0], { images: data_img ,attributes: attributes })
                 res.status(200).send(data);
             } else {
                 res.status(404).send({ msg: "Not Found", ID: req.params.goodId, data: Date() });
@@ -134,6 +135,19 @@ module.exports = function (app, db, woo_api) {
 
 
     });
+
+    app.post('/bookItem', async (req, res) => {
+        try {
+            const data = await wooapi.book_item(req.body, woo_api)
+
+            res.status(data.statusCode).send({data: data.body});
+        } catch (err) {
+            res.status(500).send({ msg: "Error", error: err, date: Date() });
+        }
+
+
+    });
+
     app.get('/test', async (req, res) => {
         try {
             const data = await dbf.test_querry(db)

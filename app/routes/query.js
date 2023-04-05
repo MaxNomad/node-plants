@@ -32,6 +32,15 @@ const get_good_images = (db, good_ID) => {
 
     })
 }
+const get_good_attr = (db, good_ID) => {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT t.`term_id` AS 'AttributeValueID', REPLACE(REPLACE(tt.`taxonomy`, 'pa_', ''), '-', ' ') AS 'AttrName', t.`name` AS 'AttrValue' FROM `wp_posts` AS p INNER JOIN `wp_term_relationships` AS tr ON p.`ID` = tr.`object_id` INNER JOIN `wp_term_taxonomy` AS tt ON tr.`term_taxonomy_id` = tt.`term_id` AND tt.`taxonomy` LIKE 'pa_%' INNER JOIN `wp_terms` AS t ON tr.`term_taxonomy_id` = t.`term_id` WHERE p.`post_type` = 'product' AND p.`post_status` = 'publish' AND p.`ID` = ?", good_ID, (err, res) => {
+            err ? reject(err) : resolve(res)
+        })
+
+    })
+}
+
 
 const QUERRY = `
 SELECT p.ID 'code',
@@ -75,4 +84,4 @@ const test_querry = (db) => {
     })
 }
 
-module.exports = { get_home, get_good, get_good_images, get_search_items, test_querry };
+module.exports = { get_home, get_good, get_good_images, get_search_items, test_querry, get_good_attr };

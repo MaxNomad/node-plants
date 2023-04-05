@@ -52,6 +52,41 @@ const data = (req) => {
   return shape
 }
 
+const bookData = (req) => {
+
+
+  const shape = {
+    "payment_method": "",
+    "payment_method_title": "",
+    "set_paid": true,
+    "status": "bookitem",
+    "billing": {
+      "first_name": ("Клієнт: " + req.name),
+      "last_name": "",
+      "address_1": "",
+      "address_2": "",
+      "city": "",
+      "state": "",
+      "postcode": "",
+      "country": "",
+      "email": req.email,
+      "phone": req.number
+    },
+    "shipping": {
+      "first_name": ("Клієнт: " + req.name),
+      "last_name": "",
+      "address_1": "",
+      "address_2": "",
+      "city":"",
+      "state": "",
+      "postcode": "",
+      "country": ""
+    },
+    "line_items": req.line_items
+  }
+  return shape
+}
+
 
 
 const make_order = async (req, api) => {
@@ -59,12 +94,18 @@ const make_order = async (req, api) => {
     api.postAsync("orders", data(req)).then((result) => {
       resolve(result)
     });
-
   })
-
-
 }
 
-module.exports = { make_order };
+const book_item = async (req, api) => {
+  return new Promise((resolve) => {
+    api.postAsync("orders", bookData(req)).then((result) => {
+      resolve(result)
+    });
+
+  })
+}
+
+module.exports = { make_order,  book_item};
 
 
