@@ -13,7 +13,7 @@ NC='\033[0m' # No Color
 
 echo -e "${ORANGE}SIVIUM SCRIPTS | ${PURPLE}Checking build environment...${NC}"
 
-if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+
 # Check if .pm2 folder does not exist, then install pm2
   if ! directory_exists "$HOME/.pm2"; then
     echo -e "${ORANGE}SIVIUM SCRIPTS | ${PURPLE}Installing pm2...${NC}"
@@ -31,4 +31,3 @@ if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
   else
     echo -e "${ORANGE}SIVIUM SCRIPTS | ${GREEN}bun is already installed.${NC}"
   fi
-fi
