@@ -54,7 +54,7 @@ if [[ -z "$SKIP_UPDATE" ]]; then
   echo -e "${ORANGE}SIVIUM SCRIPTS | ${GREEN}DONE${NC}"
 
   echo -e "${ORANGE}SIVIUM SCRIPTS | ${PURPLE}Building files...${NC}"
-  NODE_ENV=production yarn build
+  #NODE_ENV=production yarn build
   echo -e "${ORANGE}SIVIUM SCRIPTS | ${GREEN}DONE${NC}"
 fi
 
