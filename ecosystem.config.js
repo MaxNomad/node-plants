@@ -1,10 +1,9 @@
 module.exports = {
   apps : [{
     name   : "wp-server",
+    exec_mode: 'cluster',
+    instances: '2',
     script : "app.js",
-    ignore_watch: ['node_modules'],
-    watch: true,
-    watch_delay: 1025,
     env_production: {
        NODE_ENV: "production"
     },
