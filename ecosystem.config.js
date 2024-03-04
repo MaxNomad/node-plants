@@ -4,7 +4,7 @@ module.exports = {
     script : "app.js",
     ignore_watch: ['node_modules'],
     watch: true,
-    watch_delay: 3000,
+    watch_delay: 1025,
     env_production: {
        NODE_ENV: "production"
     },
