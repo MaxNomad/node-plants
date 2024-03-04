@@ -158,6 +158,18 @@ module.exports = function (app, db, woo_api) {
 
 
     });
+
+    app.get('/checkout-settings', async (req, res) => {
+        try {
+            const data = await dbf.checkout_querry(db)
+            res.status(200).send(data);
+        } catch (err) {
+            res.status(500).send({ msg: "Error", error: err, date: Date() });
+        }
+
+
+    });
+
     app.get('/', async (req, res) => {
         try {
             res.status(200).send({ api: "/api/v1", version: "v1", name: "WP-NODE_V_1.2.4" });

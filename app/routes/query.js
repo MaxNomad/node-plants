@@ -84,4 +84,13 @@ const test_querry = (db) => {
     })
 }
 
-module.exports = { get_home, get_good, get_good_images, get_search_items, test_querry, get_good_attr };
+const checkout_querry = (db) => {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT option_value as min_checkout FROM wp_options WHERE option_name = 'ct_mpac_minimum_purchase_value_for_all';", (err, res) => {
+            err ? reject(err) : resolve(res[0])
+        })
+
+    })
+}
+
+module.exports = { get_home, get_good, get_good_images, get_search_items, test_querry,checkout_querry, get_good_attr };
