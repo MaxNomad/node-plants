@@ -20,6 +20,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
     "start": "node app.js",
+    "preinstall": "sh ./preinstall.sh",
     "production": "pm2 start ecosystem.config.js --env production",
     "monit": "pm2 logs",
     "gitupdate": "git reset --hard && git pull && npm ci && npm run production"
